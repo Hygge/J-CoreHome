@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <p style="padding: 20px;">Designed and Developed by Hygge <span style="color: red;">❤</span> Powered by vue3 + .NET 6 &nbsp;<el-button text @click="login">登录</el-button></p>
-        <p>© {{ year }} - Hygge &nbsp;{{ setting.icPnumber }}</p>
+        <p>© {{ year }} - Hygge &nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">{{ setting.icPnumber }}</a></p>
     </div>
 </template>
 

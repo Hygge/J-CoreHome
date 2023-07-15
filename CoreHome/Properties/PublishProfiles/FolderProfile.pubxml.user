@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\code\C#\web\J-CoreHome\CoreHome\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2023-07-14T03:05:57.8096456Z;True|2023-07-13T15:38:45.0553313+08:00;True|2023-07-13T11:33:02.7957149+08:00;True|2023-07-13T11:32:56.0648180+08:00;True|2023-07-13T11:14:02.4161693+08:00;True|2023-07-13T10:00:26.6493798+08:00;True|2023-07-13T09:02:17.0296303+08:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
