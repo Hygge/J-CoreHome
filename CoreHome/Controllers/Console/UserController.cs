@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreHome.Controllers.Console
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {

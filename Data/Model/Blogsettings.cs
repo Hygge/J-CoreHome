@@ -8,18 +8,13 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
-    /// <summary>
-    /// 分类
-    /// </summary>
-    public class Category
+    public class Blogsettings
     {
         [Key]
-        public int CId { get; set; }
-        /// <summary>
-        /// 类名
-        /// </summary>
+        public int Id {  get; set; }
         [Column(TypeName = "varchar(200)")]
-        public string CategoryName { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
 
     }
 }

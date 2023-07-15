@@ -11,7 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreHome.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// 文章管理
+    /// </summary>
+    [Route("[controller]")]
     [ApiController]
     public class ArticlesController : ControllerBase
     {
@@ -105,7 +108,7 @@ namespace CoreHome.Controllers
         }
 
         [TypeFilter(typeof(ConsoleFilter))]
-        [Route("/api/Articles/{id:int}")]
+        [Route("{id:int}")]
         [HttpPatch]
         public R Patch(int id, [FromBody] Article article)
         {
@@ -140,7 +143,7 @@ namespace CoreHome.Controllers
         }
 
         [TypeFilter(typeof(ConsoleFilter))]
-        [Route("/api/Articles/{id:int}")]
+        [Route("{id:int}")]
         [HttpDelete ]
         public R Delete(int id)
         {
@@ -150,15 +153,20 @@ namespace CoreHome.Controllers
             return R.Ok();
         }
 
-
-        [Route("/api/Articles/{id:int}")]
+        /// <summary>
+        /// 获取文章详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("{id:int}")]
         [HttpGet]
         public R Get(int id)
         {
             var article = _blogDbContext.Articles.Where(a => a.ArId == id && a.IsDeleted == false).First();         
             return R.Ok(article);
         }
-        [Route("/api/Articles/ListA")]
+
+        [Route("[action]")]
         [HttpPost]
         public R ListA([FromBody] ArticleRequest articleRequest)
         {

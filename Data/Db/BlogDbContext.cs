@@ -16,7 +16,7 @@ namespace Data.Db
     {
         public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
         {
-
+            
         }
 
 
@@ -27,12 +27,13 @@ namespace Data.Db
         }
 
 
-        public DbSet<Article> Articles { get; set; } 
-        public DbSet<Category> Categorys { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<FriendUrl> FriendUrls { get; set; }
-        public DbSet<Setting> Settings { get; set; }
-        public DbSet<FileInfom> FileInfos { get; set; }
+        public DbSet<Article> Articles { get; set; } = default!; 
+        public DbSet<Category> Categorys { get; set; } = default!;
+        public DbSet<User> Users { get; set; } = default!;
+        public DbSet<FriendUrl> FriendUrls { get; set; } = default!;
+        public DbSet<Setting> Settings { get; set; } = default!;
+        public DbSet<FileInfom> FileInfos { get; set; } = default!;
+        public DbSet<Blogsettings> Blogsettingss { get; set; } = default!;
 
     }
 }

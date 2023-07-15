@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace CoreHome.Controllers.Console
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class FriendController : ControllerBase
     {

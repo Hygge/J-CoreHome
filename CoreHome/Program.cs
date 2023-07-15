@@ -1,4 +1,5 @@
-using CoreHome.Config;
+ï»¿using CoreHome.Config;
+using CoreHome.Config.Extensions;
 using CoreHome.Filters;
 using CoreHome.Utils;
 using Data.Db;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 
 namespace CoreHome
@@ -22,13 +25,14 @@ namespace CoreHome
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+ 
 
-            // Ìí¼ÓÄÚ´æ»º´æ
+            // æ·»åŠ å†…å­˜ç¼“å­˜
             builder.Services.AddMemoryCache();
-            // ×¢Èëjwt
+            // æ³¨å…¥jwt
             builder.Services.AddScoped<JwtHelper>();
 
-            // ÅäÖÃÊı¾İ¿â
+            // é…ç½®æ•°æ®åº“
             builder.Services.AddDbContext<BlogDbContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("mysqlServer"), new MySqlServerVersion(new Version(5, 7)))
                 .LogTo(Console.WriteLine, LogLevel.Debug));
@@ -38,18 +42,19 @@ namespace CoreHome
                             throw new InvalidOperationException("Connection string 'MvcMovieContext' not found."))
                             .LogTo(Console.WriteLine, LogLevel.Debug));*/
 
-            // ×¢²áÉ¸Ñ¡Æ÷
+            // æ³¨å†Œç­›é€‰å™¨
             builder.Services.Configure<MvcOptions>(opt =>
             {
                 opt.Filters.Add<GlobalExceptionFilter>();
+                
             });
 
-            //Í³Ò»·µ»ØÊ±¼ä¸ñÊ½,ÅäÖÃ·µ»ØµÄÊ±¼äÀàĞÍÊı¾İ¸ñÊ½
+            //ç»Ÿä¸€è¿”å›æ—¶é—´æ ¼å¼,é…ç½®è¿”å›çš„æ—¶é—´ç±»å‹æ•°æ®æ ¼å¼
             builder.Services.AddMvc().AddJsonOptions((options) => {
                 options.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
             });
 
-            //ÅäÖÃ¿çÓò
+            //é…ç½®è·¨åŸŸ
             builder.Services.AddEndpointsApiExplorer();
             string[] urls = new string[] { "https://www.zeng164outlook.online","http://localhost:3000" };
             builder.Services.AddCors(options =>
@@ -69,9 +74,12 @@ namespace CoreHome
                                             .AllowAnyMethod();
                     });*/
             });
-          
+            builder.Services.AddControllers(opt =>
+            {
+                // ç»Ÿä¸€è®¾ç½®è·¯ç”±å‰ç¼€
+                opt.UseCentralRoutePrefix(new RouteAttribute(builder.Configuration["context-path"]));
+            });
 
-            builder.Services.AddControllers();
 
             var app = builder.Build();
 
@@ -82,19 +90,19 @@ namespace CoreHome
                 app.UseSwaggerUI();
             }
                         
-            // ¿ªÆô¿çÓò
+            // å¼€å¯è·¨åŸŸ
             app.UseCors();
             // app.UseCors("Policy1");
             
             app.UseHttpsRedirection();
 
-            //Ê¹ÓÃÄ¬ÈÏÎÄ¼ş·ÃÎÊÖĞ¼ä¼ş£¬ÉèÖÃStaticFileOptionsÀ´ÊµÏÖ·ÃÎÊÏîÄ¿¸ùÄ¿Â¼ÎÄ¼ş
-            // MyStaticFiles·şÎñÆ÷Ó³ÉäÎÄ¼ş¼Ğ£¬¿É·ÃÎÊÎÄ¼ş¼ĞÏÂÎÄ¼ş
+            //ä½¿ç”¨é»˜è®¤æ–‡ä»¶è®¿é—®ä¸­é—´ä»¶ï¼Œè®¾ç½®StaticFileOptionsæ¥å®ç°è®¿é—®é¡¹ç›®æ ¹ç›®å½•æ–‡ä»¶
+            // MyStaticFilesæœåŠ¡å™¨æ˜ å°„æ–‡ä»¶å¤¹ï¼Œå¯è®¿é—®æ–‡ä»¶å¤¹ä¸‹æ–‡ä»¶
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
                      Path.Combine(builder.Environment.ContentRootPath, "MyStaticFiles")),
-                //·ÃÎÊÎÄ¼şÇ°×º
+                //è®¿é—®æ–‡ä»¶å‰ç¼€
                     RequestPath = ""
             });
 
@@ -107,9 +115,9 @@ namespace CoreHome
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                // ÏîÄ¿Æô¶¯²éÑ¯ÊÇ·ñ´æÔÚÓÃ»§²»´æÔÚ²åÈëÒ»Ìõ¹ÜÀíÔ±ÓÃ»§
+                // é¡¹ç›®å¯åŠ¨æŸ¥è¯¢æ˜¯å¦å­˜åœ¨ç”¨æˆ·ä¸å­˜åœ¨æ’å…¥ä¸€æ¡ç®¡ç†å‘˜ç”¨æˆ·
                 var db = services.GetRequiredService<BlogDbContext>();
-                long count = db.Users.Count();
+                long count = db.Users.Count<User>();
                 if (count == 0)
                 {
                     User user = new User { Id = 1, Name = "Admin", Email = "3163367790@qq.com", Password = SecurityUtil.SHA256Encrypt("123456") };

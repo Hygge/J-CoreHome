@@ -7,7 +7,7 @@ namespace CoreHome.Controllers
 {
 
 
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class TestController : ControllerBase
     {

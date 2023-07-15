@@ -34,9 +34,9 @@ namespace CoreHome.Utils
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
 
             // 3. 选择加密算法
-            var algorithm = SecurityAlgorithms.HmacSha256;
+            var algorithm = SecurityAlgorithms.HmacSha256Signature;
 
-            // 4. 生成Credentials
+            // 4. 生成Credentials   
             var signingCredentials = new SigningCredentials(secretKey, algorithm);
 
             // 5. 根据以上，生成token

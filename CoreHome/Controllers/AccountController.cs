@@ -11,7 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 namespace CoreHome.Controllers
 {
 
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

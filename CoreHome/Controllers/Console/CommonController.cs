@@ -15,7 +15,7 @@ namespace CoreHome.Controllers.Console
 
     //[EnableCors("Policy1")] //允许跨域
     //[TypeFilter(typeof(ConsoleFilter))]
-    [Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class CommonController : ControllerBase
     {

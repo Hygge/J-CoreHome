@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreHome.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
