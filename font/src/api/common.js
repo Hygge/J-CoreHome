@@ -7,4 +7,7 @@ export function getCategory() {
 export function getArticles(data) {
         return PostJson("/Articles", data)
 }
+export function getSetting(data) {
+        return Get("/Settings/List", data)
+}
 

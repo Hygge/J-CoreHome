@@ -1,4 +1,15 @@
 <script setup>
+import {onMounted} from "vue";
+import {getSetting} from "@/api/common.js";
+
+onMounted(() => {
+    // 加载配置
+    getSetting().then( res => {
+        let data = res.data.data
+        localStorage.setItem('setting', JSON.stringify(data))
+    })
+
+})
 
 </script>
 

@@ -25,7 +25,7 @@
                 基础设置
             </el-divider>
             <el-row  class="settings">
-                <el-input class="input-setting"  size="large" v-model="setting.avator" placeholder="Please input">
+                <el-input class="input-setting"  size="large" v-model="setting.avatar" placeholder="Please input">
                     <template #prepend>头像地址</template>
                 </el-input>
                 <el-input class="input-setting"  size="large"  v-model="setting.name" placeholder="Please input">
@@ -96,7 +96,7 @@ export default {
             password: '',
         })
         const setting = reactive({
-            avator: '',
+            avatar: '',
             name: '',
             ICP: '',
             sdk: '',
@@ -155,7 +155,7 @@ export default {
                 let data = res.data.data;
                 setting.name = data.name;
                 setting.ICP = data.ICP;
-                setting.avator = data.avator;
+                setting.avatar = data.avatar;
                 setting.blogs = data.blogs;
                 setting.music = data.music;
                 setting.github = data.github;
